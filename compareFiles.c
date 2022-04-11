@@ -2,11 +2,13 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
+#include <stdbool.h>
 void compareFiles(char* sourceDirName, char* destinationDirName)
 {
-	DIR* sD, dD;
-	struct dirent* sF, dF;
+	DIR* sD; 
+	DIR * dD;
+	struct dirent* sF;
+	 struct dirent* dF;
 	sD = opendir(sourceDirName);
 	dD = opendir(destinationDirName);
 	char* sourcePath[100];
@@ -38,8 +40,8 @@ void compareFiles(char* sourceDirName, char* destinationDirName)
 					printf("Problem z plikiem o nazwie: %s\n", destinationPath);
 					continue;
 				}
-
-				if ((dFStats.st_mode & S_IFMT) == S_IFDIR) // pomijanie katalogów
+				printf("%s %s\n", dF->d_name,ctime(&dFStats.st_mtime));
+				if ((dFStats.st_mode & S_IFMT) == S_IFDIR) // pomijanie katalog�w
 				{
 					continue;
 				}
@@ -50,6 +52,7 @@ void compareFiles(char* sourceDirName, char* destinationDirName)
 						if (difftime(sFStats.st_mtime, dFStats.st_mtime) != 0) // jezeli daty modyfikacji rozne
 						{
 							//kopiowanie ze zrodlowego do docelowego
+							printf("Kopiowanie ze zrodlowego do doclegowe. Plik: %s \n",sF->d_name);
 							IsFound = true;
 						}
 					}
@@ -57,8 +60,7 @@ void compareFiles(char* sourceDirName, char* destinationDirName)
 			}
 			if (!IsFound) // jezeli nie ma w docelowym
 			{
-				//kopiowanie ze zrodlowego do docelowego
+			printf("JEZELI NIE MA W DOCELOWYM Kopiowanie ze zrodlowego do doclegowe. Plik: %s \n",sF->d_name);			}
 			}
-		}
 	}
 }

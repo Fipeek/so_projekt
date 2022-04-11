@@ -39,7 +39,7 @@ void compareFiles(char* sourceDirName, char* destinationDirName)
 					continue;
 				}
 
-				if ((dFStats.st_mode & S_IFMT) == S_IFDIR) // pomijanie katalogów
+				if ((dFStats.st_mode & S_IFMT) == S_IFDIR) // pomijanie katalogÃ³w
 				{
 					continue;
 				}

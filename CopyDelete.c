@@ -1,26 +1,51 @@
 #include <stdio.h>
 #include <sys/stat.h>
+#include <stdbool.h>
 
+int main()
+{}
 
-
-void copyFile(char *sourcePath, char *targetPath, bool)
+bool copyFile(char *sourcePath, char *targetPath)
 {
+	int numberOfPackets = 1;
+	int buffSize = sizeof(char);
+	int packetsRead;
+	char buffer[buffSize]; 
 	
-	char oneBitBuffor;
    	FILE *sourceFile = fopen(sourcePath, "r");
    	FILE *targetFile = fopen(targetPath, "w");
+  	
+  	if(!sourceFile)
+  		return false;
+	if(!targetFile)
+		return false;
   
-	while( (oneBitBuffor = fgetc(sourceFile) ) != EOF )
-		fputc(oneBitBuffor, targetFile);
-   	  
+	while(packetsRead = fread(buffer, buffSize, numberOfPackets, sourceFile))
+	{
+		fwrite(buffer, sizeof(char), packetsRead, targetFile);
+		if(feof(sourceFile))
+			return true;
+		if(ferror(sourceFile))
+		{
+			printf("Błąd w odczytywanie pliku.");
+			return false;
+		}
+	}
+   	 
+ 	fclose(targetFile);
+	fclose(sourceFile);
 }
 
-void deleteFile(char *targetFile)
+bool deleteFile(char *targetFile)
 {
-	if ( remove(targetFile) == 0) 
-    	    printf("The file is deleted successfully.");
-    	 
+	if ( remove(targetFile) == 0)
+	{ 
+    		printf("The file is deleted successfully.");
+		return true;	 	
+	}
     	else 
-    	    printf("The file is not deleted.");
+    	{
+    		printf("The file is not deleted.");
+		return false;
+	}
 }
-

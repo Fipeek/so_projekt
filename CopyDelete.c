@@ -2,8 +2,6 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 
-int main()
-{}
 
 bool copyFile(char *sourcePath, char *targetPath)
 {

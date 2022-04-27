@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <linux/limits.h>
 
-void deleteReccursively(char *pathname);
+
 bool deleteFile(char *targetFile);
 
 int main(int argc, char *args[])
@@ -13,7 +13,7 @@ int main(int argc, char *args[])
 	deleteReccursively(args[1]);
 }
 
-void deleteReccursively(char *pathname)
+void deleteRecursively(char *pathname)
 {
 	DIR *d = opendir(pathname);
 	struct dirent *dir;

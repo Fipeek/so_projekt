@@ -10,7 +10,7 @@ bool deleteFile(char *targetFile);
 
 int main(int argc, char *args[])
 {
-	deleteReccursively(args[1]);
+	deleteRecursively(args[1]);
 }
 
 void deleteRecursively(char *pathname)

@@ -79,7 +79,28 @@ void compareAndCopyFilesAndDir(char* sourceDirName, char* destinationDirName, si
 							}
 							else
 							{
-								//copyFile(sourcePath, helpString);
+								printf("niepoprawne skopiowanie pliku \n");
+							}
+						}
+						else
+						{
+							if (copyFile(sourcePath, destinationPath))
+							{
+								printf("\n poprawne skopiowanie pliku \n");
+								struct utimbuf targetTime;
+
+								targetTime.actime = sFStats.st_atime;
+								targetTime.modtime = sFStats.st_mtime;
+
+								if (utime(destinationPath, &targetTime) == 0)
+								{
+									printf("git zmiana");
+								}
+
+							}
+							else
+							{
+								printf("niepoprawne skopiowanie pliku \n");
 							}
 						}
 					}
@@ -95,16 +116,39 @@ void compareAndCopyFilesAndDir(char* sourceDirName, char* destinationDirName, si
 					if (sFStats.st_size > sizeLimit)
 					{
 						if (mapFile(sourcePath, destinationPath))
+						{
 							printf("Kopiowanie pliku %s zakończone pomyślnie", sF->d_name);
+						}
+						else
+						{
+							printf("niepoprawne skopiowanie pliku \n");
+						}
 					}
 					else
 					{
-						//copyFile(sourcePath, helpString);
+						if (copyFile(sourcePath, destinationPath))
+						{
+							printf("\n poprawne skopiowanie pliku \n");
+							struct utimbuf targetTime;
+
+							targetTime.actime = sFStats.st_atime;
+							targetTime.modtime = sFStats.st_mtime;
+
+							if (utime(destinationPath, &targetTime) == 0)
+							{
+								printf("git zmiana");
+							}
+
+						}
+						else
+						{
+							printf("niepoprawne skopiowanie pliku \n");
+						}
 					}
-					printf("kopiowanie pliku o nazwie: %s\n", sourcePath);
 				}
 				else
 				{
+					//copyDir();
 					printf("kopiowanie folderu o nazwie: %s\n", sourcePath);
 				}
 			}

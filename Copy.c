@@ -75,16 +75,13 @@ bool copyFile(char *sourcePath, char *destinationPath )
 	
 	
 	
+
 	char logMessage[PATH_MAX + 100];
-	strcat(sourcePath, logMessage);
-	
 	char *message = "został skopiowany pomyślnie.";
-	
-	strcat(message, logMessage);
+		
 	time_t currtime = time(NULL);
-	char *currtimeS = ctime(time);
-	 
-	strcat(currtimeS, logMessage);
+	char *currtimeS = ctime(&currtime);
+	sprintf(logMessage, "Plik %s został skopiowany pomyślnie. %s", sourcePath, currtimeS);
 	
 	syslog(priority, logMessage);
 	closelog();

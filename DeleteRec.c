@@ -6,14 +6,8 @@
 #include <linux/limits.h>
 #include <syslog.h>
 #include <time.h>
+#include <unistd.h>
 
-
-bool deleteFile(char *targetPath);
-
-int main(int argc, char *args[])
-{
-	deleteReccursively(args[1]);
-}
 
 void deleteRecursively(char *pathname)
 {
@@ -46,7 +40,6 @@ void deleteRecursively(char *pathname)
 			{
 				char filename[PATH_MAX];
 				sprintf(filename, "%s/%s", pathname, dir->d_name);
-				printf("%s %d usunięto plik \n", filename, dir->d_type);
 				deleteFile(filename);
 			} 
 			
@@ -60,7 +53,7 @@ void deleteRecursively(char *pathname)
 			time_t currtime = time(NULL);
 			char *currtimeS = ctime(&currtime);
 			
-			sprintf(logMessage, "Plik %s został usunięty pomyślnie %s.", targetPath, currtimeS);
+			sprintf(logMessage, "Plik %s został usunięty pomyślnie %s.", pathname, currtimeS);
 		
 			syslog(priority, logMessage);
 			closelog();

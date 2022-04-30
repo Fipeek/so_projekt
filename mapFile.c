@@ -4,6 +4,9 @@
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
+#include <syslog.h>
+#include <linux/limits.h>
 
 bool mapFile(char* sourcePath, char* destinationPath)
 {
@@ -11,6 +14,8 @@ bool mapFile(char* sourcePath, char* destinationPath)
     char* source;
     char* destination;
     size_t fileSize;
+    int priority = LOG_INFO | LOG_DAEMON;
+    openlog(NULL, LOG_CONS , priority);
 
     sourceFile = open(sourcePath, O_RDONLY);
     fileSize = lseek(sourceFile, 0, SEEK_END);
@@ -27,6 +32,15 @@ bool mapFile(char* sourcePath, char* destinationPath)
         return false;
 
     memcpy(destination, source, fileSize);
+    
+    char logMessage[PATH_MAX + 100];
+		
+    time_t currtime = time(NULL);
+    char *currtimeS = ctime(&currtime);
+    sprintf(logMessage, "Plik %s został zmapowany pomyślnie %s.", sourcePath, currtimeS);
+	
+    syslog(priority, logMessage);
+    closelog();
 
     munmap(source, fileSize);
     munmap(destination, fileSize);

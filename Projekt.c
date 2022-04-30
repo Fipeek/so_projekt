@@ -14,10 +14,10 @@ void compareAndCopyFilesAndDir(char* sourceDirName, char* destinationDirName, si
 bool SleepMode(int sleepTime);
 void main(int argc, char *argv[])
 {
-	daemon(1,1);
+	daemon(1,0);
 	int sleepTime = 300;
 	int option_value = 0;
-	size_t fileSize = 600000;
+	size_t fileSize = 100000;
 	bool isRPar = false;
 	char sourceName[PATH_MAX], destinationName[PATH_MAX];
 	strcpy(sourceName, argv[1]);

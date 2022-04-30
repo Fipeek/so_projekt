@@ -97,10 +97,12 @@ void compareAndCopyFilesAndDir(char* sourceDirName, char* destinationDirName, si
 				if (sFStats.st_size > sizeLimit)
 				{
 					mapFile(sourcePath, helpString);
+					printf("mapowawnie\n");
 				}
 				else
 				{
 					copyFile(sourcePath, helpString);
+					printf("kopiowanie\n");
 				}
 			}
 			else

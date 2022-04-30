@@ -7,14 +7,6 @@
 #include <syslog.h>
 #include <linux/limits.h>
 
-void copyRecursively(char *sourcePath, char *targetPath);
-
-int main(int argc, char *args[])
-{
-
-	copyRecursively(args[1],args[2]);
-
-}
 
 bool copyFile(char *sourcePath, char *targetPath);
 void copyRecursively(char *sourcePath, char *targetPath)

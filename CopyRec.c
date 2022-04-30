@@ -8,7 +8,7 @@
 #include <linux/limits.h>
 
 
-bool copyFile(char *sourcePath, char *targetPath);
+bool copyFile(char *sourcePath, char *destinationPath);
 void copyRecursively(char *sourcePath, char *targetPath)
 {
 	DIR *sourceDir = opendir(sourcePath);

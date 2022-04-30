@@ -34,7 +34,7 @@ void deleteRecursively(char *pathname)
 			{
 				char filename[PATH_MAX];
 				sprintf(filename, "%s/%s", pathname, dir->d_name);
-				deleteReccursively(filename);
+				deleteRecursively(filename);
 			}
 			else
 			{

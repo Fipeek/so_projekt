@@ -19,6 +19,7 @@ bool SleepMode(int sleepTime){
          struct sigaction sa = { 0 };
          sa.sa_handler = &handler_sigusr1;
          sigaction(SIGUSR1, &sa, NULL);
-         
+         :DDD
+             
          return sleep(sleepTime);
 }   
